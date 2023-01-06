@@ -21,7 +21,7 @@ export default function Contribute(){
 
     return(
         <SafeAreaProvider>
-        {/* <SafeAreaView style={styles.container}> */}
+
             <View style={styles.topgraphic}>
                     <Text style={styles.txtheader}>
                         Contribute
@@ -56,6 +56,12 @@ export default function Contribute(){
                         placeholderTextColor="#D3D3D3">
                     </TextInput>
 
+                    <TextInput style={styles.txtinput} 
+                        onChangeText = {newText => setPrice(newText)}
+                        placeholder="Image Url"
+                        placeholderTextColor="#D3D3D3">
+                    </TextInput>
+
 
                     <Button 
                         style={styles.btn} 
@@ -66,7 +72,7 @@ export default function Contribute(){
                         </Text>
                     </Button>
                 </View>   
-        {/* </SafeAreaView> */}
+        
         </SafeAreaProvider>
     )
 }

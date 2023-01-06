@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import CustomButton from "./CustomButton";
-import InputField from "./InputField";
+import CustomButton from "../components/CustomButton";
+import InputField from "../components/InputField";
 
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -48,7 +48,7 @@ const RegisterScreen = ({ navigation }) => {
           Register
         </Text>
 
-        {/* <View
+        <View
           style={{
             flexDirection: "row",
             justifyContent: "space-around",
@@ -83,58 +83,101 @@ const RegisterScreen = ({ navigation }) => {
 
         <Text style={{ textAlign: "center", color: "#666", marginBottom: 30 }}>
           Or, register with email ...
-        </Text> */}
+        </Text>
 
-        <InputField
-          label={"Full Name"}
-          icon={
-            <Ionicons
-              name="person-outline"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
+      {/* Name */}
+      <View
+        style={{
+          flexDirection: "row",
+          borderBottomColor: "#ccc",
+          borderBottomWidth: 1,
+          paddingBottom: 8,
+          marginBottom: 25,
+        }}
+      >
+        <Ionicons
+          name="person-outline"
+          size={20}
+          color="#666"
+          style={{ marginRight: 5 }}
         />
+          <TextInput
+            placeholder={"Full Name"}
+            style={{ flex: 1, paddingVertical: 0 }}
+          />
+      </View>
 
-        <InputField
-          label={"Email ID"}
-          icon={
-            <MaterialIcons
+        {/* emailid */}
+        <View
+          style={{
+            flexDirection: "row",
+            borderBottomColor: "#ccc",
+            borderBottomWidth: 1,
+            paddingBottom: 8,
+            marginBottom: 25,
+          }}
+        >
+        <MaterialIcons
               name="alternate-email"
               size={20}
               color="#666"
               style={{ marginRight: 5 }}
             />
-          }
-          keyboardType="email-address"
-        />
+          <TextInput
+            placeholder={"Email ID"}
+            keyboardType="email-address"
+            style={{ flex: 1, paddingVertical: 0 }}
+          />
+      </View>
 
-        <InputField
-          label={"Password"}
-          icon={
-            <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-          inputType="password"
-        />
+      {/* password */}
+      <View
+        style={{
+          flexDirection: "row",
+          borderBottomColor: "#ccc",
+          borderBottomWidth: 1,
+          paddingBottom: 8,
+          marginBottom: 25,
+        }}
+        >
+          <Ionicons
+                name="ios-lock-closed-outline"
+                size={20}
+                color="#666"
+                style={{ marginRight: 5 }}
+              />
+          <TextInput
+            placeholder={"Password"}
+            keyboardType="password"
+            secureTextEntry={true}
+            style={{ flex: 1, paddingVertical: 0 }}
+          />
+      </View>
 
-        <InputField
-          label={"Confirm Password"}
-          icon={
-            <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-          inputType="password"
-        />
+
+      {/* confirm password */}    
+      <View
+        style={{
+          flexDirection: "row",
+          borderBottomColor: "#ccc",
+          borderBottomWidth: 1,
+          paddingBottom: 8,
+          marginBottom: 25,
+        }}
+        >
+          <Ionicons
+            name="ios-lock-closed-outline"
+            size={20}
+            color="#666"
+            style={{ marginRight: 5 }}
+          />
+          <TextInput
+            secureTextEntry={true}
+            placeholder={"Confirm Password"}
+            keyboardType="password"
+            style={{ flex: 1, paddingVertical: 0 }}
+          />
+      </View>
 
         <CustomButton label={"Register"} onPress={() => {}} />
 

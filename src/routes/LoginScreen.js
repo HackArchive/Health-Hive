@@ -1,10 +1,11 @@
-import React from "react";
+import {useContext,useState} from "react";
 import {
   SafeAreaView,
   View,
   Text,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -14,10 +15,27 @@ import LoginSVG from "../assets/images/misc/login.svg";
 import GoogleSVG from "../assets/images/misc/google.svg";
 import FacebookSVG from "../assets/images/misc/facebook.svg";
 
-import CustomButton from "./CustomButton";
-import InputField from "./InputField";
+import CustomButton from "../components/CustomButton";
+import InputField from "../components/InputField";
+import { Context } from "../../App";
 
 const LoginScreen = ({ navigation }) => {
+
+  const {setEmail,setPassword,setIsLoggedIn} = useContext(Context);
+  const [localEmail,setLocalEmail] = useState('');
+  const [localPassword,setLocalPassword] = useState('');
+
+  const login = ()=>{
+
+    if (localEmail=="swapnil@gmail.com" && localPassword=="swapnil"){
+      setEmail(localEmail);
+      setPassword(localPassword);
+      setIsLoggedIn(true);
+    }
+
+  }
+
+
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
       <View style={{ paddingHorizontal: 25 }}>
@@ -40,37 +58,65 @@ const LoginScreen = ({ navigation }) => {
           Login
         </Text>
 
-        <InputField
-          label={"Email ID"}
-          icon={
+        <View
+          style={{
+            flexDirection: "row",
+            borderBottomColor: "#ccc",
+            borderBottomWidth: 1,
+            paddingBottom: 8,
+            marginBottom: 25,
+          }}
+          >
             <MaterialIcons
-              name="alternate-email"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
+                  name="alternate-email"
+                  size={20}
+                  color="#666"
+                  style={{ marginRight: 5 }}
+                />
+            <TextInput
+              placeholder={"Email ID"}
+              keyboardType="email-address"
+              style={{ flex: 1, paddingVertical: 0 }}
+              value={localEmail}
+              onChangeText={(text) => setLocalEmail(text)}
             />
-          }
-          keyboardType="email-address"
-        />
+        </View>
 
-        <InputField
-          label={"Password"}
-          icon={
+
+        <View
+          style={{
+            flexDirection: "row",
+            borderBottomColor: "#ccc",
+            borderBottomWidth: 1,
+            paddingBottom: 8,
+            marginBottom: 25,
+          }}
+          >
             <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
+                  name="ios-lock-closed-outline"
+                  size={20}
+                  color="#666"
+                  style={{ marginRight: 5 }}
+                />
+            <TextInput
+              placeholder={"Password"}
+              keyboardType="password"
+              style={{ flex: 1, paddingVertical: 0 }}
+              value={localPassword}
+              onChangeText={(text) => setLocalPassword(text)}
+              secureTextEntry={true}
             />
-          }
-          inputType="password"
-          fieldButtonLabel={"Forgot?"}
-          fieldButtonFunction={() => {}}
-        />
+            <TouchableOpacity onPress={()=>alert("why you forgot")}>
+              <Text style={{ color: "#ef5350", fontWeight: "700" }}>
+                Forgot
+              </Text>
+            </TouchableOpacity>
+        </View>
 
-        <CustomButton label={"Login"} onPress={() => {}} />
 
-        <Text style={{ textAlign: "center", color: "#666", marginBottom: 30 }}>
+        <CustomButton label={"Login"} onPress={login} />
+
+        <Text style={{ textAlign: "center", color: "#666", marginBottom: 20 }}>
           Or, Continue with ...
         </Text>
 

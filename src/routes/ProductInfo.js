@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { StyleSheet,View,FlatList} from 'react-native';
+import {useContext} from 'react';
+import { StyleSheet,View,FlatList, Image} from 'react-native';
 import { Searchbar,Text,IconButton } from 'react-native-paper';
 import { red400,white } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors';
 import Product from '../components/Product';
-
+import { Context } from '../../App';
 
 
 
@@ -34,8 +34,8 @@ const product_data = [
 
 export default function ProductInfo({navigation}) {
 
-    const [searchQuery, setSearchQuery] = React.useState('');
-
+    const {searchQuery, setSearchQuery} = useContext(Context);
+  
     const onChangeSearch = (query) => setSearchQuery(query);
 
     const renderProduct = ({item})=>(
@@ -53,12 +53,13 @@ export default function ProductInfo({navigation}) {
     return(
     <>
         <View style={styles.staticDesign}>
-            <Text style={styles.Title}>
+            {/* <Text style={styles.Title}>
                 CAN EAT
             </Text>
             <Text style={{fontSize:14,color:"#FFFF00",marginTop:10}}>
                 know before you eat
-            </Text>
+            </Text> */}
+            <Image style={{width:250,height:250}} source={require("../../assets/icon.png")} />
         </View>
         <View style={styles.searchBarRoot}>
             <Searchbar
@@ -69,7 +70,7 @@ export default function ProductInfo({navigation}) {
             />
             <View style={styles.ScanButton}>
                 <IconButton 
-                    icon="camera"
+                    icon="barcode-scan"
                     iconColor={white}
                     size={25}
                     onPress={()=>navigation.navigate("Scanner")}

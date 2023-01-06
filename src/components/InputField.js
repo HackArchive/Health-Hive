@@ -1,6 +1,9 @@
 import React from "react";
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
 
+
+
+
 export default function InputField({
   label,
   icon,
@@ -8,7 +11,10 @@ export default function InputField({
   keyboardType,
   fieldButtonLabel,
   fieldButtonFunction,
-}) {
+  data,
+  setData,
+}){
+
   return (
     <View
       style={{
@@ -26,12 +32,16 @@ export default function InputField({
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0 }}
           secureTextEntry={true}
+          value={data}
+          onChangeText={(text) => setData(text)}
         />
       ) : (
         <TextInput
           placeholder={label}
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0 }}
+          value={data}
+          onChangeText={(text) => setData(text)}
         />
       )}
       <TouchableOpacity onPress={fieldButtonFunction}>
