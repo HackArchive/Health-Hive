@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Text } from "react-native-paper";
+import { Text, Button } from "react-native-paper";
 import { View,StyleSheet,Animated,Alert,Image } from "react-native";
 import { red400 } from "react-native-paper/lib/commonjs/styles/themes/v2/colors";
 import pfp from "../assets/pfp.png"
@@ -32,6 +32,13 @@ export default function Profile(props) {
             Contributions: 1
         </Text>
         </View>
+        <Button 
+                style={styles.btn} 
+            >
+                <Text style={styles.btnText}>
+                    Logout
+                </Text>
+        </Button>
     </View>
     )
 
@@ -77,5 +84,22 @@ const styles = StyleSheet.create({
     txtdetails:{
         fontWeight:"bold",
         fontSize:20
+    },
+    btn:{
+        width:100,
+        height:40,
+        marginTop:40,
+        backgroundColor:red400,
+        alignSelf: "center",
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    btnText:{
+
+        color:"white",
+        fontSize:20,
+        fontWeight:"bold",
+        textAlign:"left"
+        
     }
 })

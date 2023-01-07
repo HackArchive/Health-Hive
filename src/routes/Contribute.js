@@ -74,7 +74,7 @@ export default function Contribute(){
                         Win awesome NFTs and rewards!
                     </Text>
             </View>
-            <View style={{height:330}}>
+            <View style={{height:"65%"}}>
                 <ScrollView style={styles.form}>
                     <TextInput style={styles.txtinput} 
                         value={name}
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     btn:{
         width:100,
         height:40,
-        marginTop:60,
+        marginTop:40,
         backgroundColor:red400,
         alignSelf: "center",
         alignItems:"center",
@@ -205,6 +205,6 @@ const styles = StyleSheet.create({
     },
     form:{
         top:20,
-        marginHorizontal:40
+        marginHorizontal:40,
     }
 })
