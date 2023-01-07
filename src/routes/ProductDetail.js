@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react';
 import { StyleSheet, Text, View, Image, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { green800,green400,orange400,red400,red600 } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors';
-import { databases } from '../appwrite/appwriteConfig';
+import { databases,HAZARD_COLLECTION_ID,DB_ID } from '../appwrite/appwriteConfig';
 
 export default function ProductDetail({navigation,route}){
     
@@ -24,7 +24,7 @@ export default function ProductDetail({navigation,route}){
     const getHazards = async ()=>{
 
       try{
-        const resp = await databases.listDocuments("63b716cf01cb58dce0fb","63b97c90b5ad83f8682d");
+        const resp = await databases.listDocuments(DB_ID,HAZARD_COLLECTION_ID);
         const hazardsData = resp.documents.filter((item)=>{
           if(productDetail.subTitle.includes(item.name)){
             return {name:item.name,description:item.description}

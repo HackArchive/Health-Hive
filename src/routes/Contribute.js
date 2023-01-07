@@ -4,7 +4,7 @@ import { View,StyleSheet,Animated,Alert,ScrollView } from "react-native";
 import { grey200, red400,white } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors';
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Context } from "../../App";
-import { databases } from "../appwrite/appwriteConfig";
+import { databases,DB_ID,PRODUCT_COLLECTION_ID } from "../appwrite/appwriteConfig";
 import { v4 as uuid4 } from "uuid";
 
 
@@ -32,7 +32,7 @@ export default function Contribute(){
         })
 
         try{
-            const resp = await databases.createDocument("63b716cf01cb58dce0fb","63b7170360ba29961166",uuid4(),
+            const resp = await databases.createDocument(DB_ID,PRODUCT_COLLECTION_ID,uuid4(),
                 {
                     name,
                     barcode,

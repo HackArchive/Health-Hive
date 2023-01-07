@@ -7,7 +7,7 @@ import {
 } from "react-native-paper/lib/commonjs/styles/themes/v2/colors";
 import Product from "../components/Product";
 import { Context } from "../../App";
-import { account, databases } from "../appwrite/appwriteConfig";
+import { account, databases,DB_ID,PRODUCT_COLLECTION_ID } from "../appwrite/appwriteConfig";
 import InAppLogo from "../assets/images/misc/inAppLogo.svg";
 
 export default function ProductInfo({ navigation }) {
@@ -35,8 +35,8 @@ export default function ProductInfo({ navigation }) {
 
     try {
       const resp = await databases.listDocuments(
-        "63b716cf01cb58dce0fb",
-        "63b7170360ba29961166"
+        DB_ID,
+        PRODUCT_COLLECTION_ID
       );
       let searchedData = null;
       if (searchQuery.trim() !== "") {

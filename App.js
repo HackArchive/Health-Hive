@@ -4,7 +4,6 @@ import { BottomNavigation, Text, Provider } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
 import Contribute from "./src/routes/Contribute";
 import Home from "./src/routes/Home";
 import Analyse from "./src/routes/Analyse";
