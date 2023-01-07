@@ -17,11 +17,30 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import RegistrationSVG from "../assets/images/misc/registration.svg";
 import GoogleSVG from "../assets/images/misc/google.svg";
 import FacebookSVG from "../assets/images/misc/facebook.svg";
+import { BASE_URL,endpoints } from "../../config";
 
 const RegisterScreen = ({ navigation }) => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const [dobLabel, setDobLabel] = useState("Date of Birth");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const register = async ()=>{
+    const resp = await fetch(BASE_URL+endpoints.register,{
+      method:'POST',
+      body:JSON.stringify({
+        userId:username,
+        email:email,
+        password:password
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+
+    console.log(resp.status)
+
+  }
+
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
@@ -102,8 +121,10 @@ const RegisterScreen = ({ navigation }) => {
           style={{ marginRight: 5 }}
         />
           <TextInput
-            placeholder={"Full Name"}
+            placeholder={"Username"}
             style={{ flex: 1, paddingVertical: 0 }}
+            value={username}
+            onChangeText={(text)=>setUsername(text)}
           />
       </View>
 
@@ -127,6 +148,8 @@ const RegisterScreen = ({ navigation }) => {
             placeholder={"Email ID"}
             keyboardType="email-address"
             style={{ flex: 1, paddingVertical: 0 }}
+            value={email}
+            onChangeText={(text)=>setEmail(text)}
           />
       </View>
 
@@ -151,35 +174,13 @@ const RegisterScreen = ({ navigation }) => {
             keyboardType="password"
             secureTextEntry={true}
             style={{ flex: 1, paddingVertical: 0 }}
+            value={password}
+            onChangeText={(text)=>setPassword(text)}
           />
       </View>
 
 
-      {/* confirm password */}    
-      <View
-        style={{
-          flexDirection: "row",
-          borderBottomColor: "#ccc",
-          borderBottomWidth: 1,
-          paddingBottom: 8,
-          marginBottom: 25,
-        }}
-        >
-          <Ionicons
-            name="ios-lock-closed-outline"
-            size={20}
-            color="#666"
-            style={{ marginRight: 5 }}
-          />
-          <TextInput
-            secureTextEntry={true}
-            placeholder={"Confirm Password"}
-            keyboardType="password"
-            style={{ flex: 1, paddingVertical: 0 }}
-          />
-      </View>
-
-        <CustomButton label={"Register"} onPress={() => {}} />
+        <CustomButton label={"Register"} onPress={register} />
 
         <View
           style={{

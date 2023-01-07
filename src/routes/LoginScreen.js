@@ -18,6 +18,7 @@ import FacebookSVG from "../assets/images/misc/facebook.svg";
 import CustomButton from "../components/CustomButton";
 import InputField from "../components/InputField";
 import { Context } from "../../App";
+import { BASE_URL,endpoints } from "../../config";
 
 const LoginScreen = ({ navigation }) => {
 
@@ -25,13 +26,24 @@ const LoginScreen = ({ navigation }) => {
   const [localEmail,setLocalEmail] = useState('');
   const [localPassword,setLocalPassword] = useState('');
 
-  const login = ()=>{
+  const loginFunc = async ()=>{
 
-    if (localEmail=="swapnil@gmail.com" && localPassword=="swapnil"){
-      setEmail(localEmail);
-      setPassword(localPassword);
-      setIsLoggedIn(true);
-    }
+    const resp = await fetch(BASE_URL+endpoints.login,{
+      method:'POST',
+      body:JSON.stringify({
+        email:localEmail,
+        password:localPassword
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    console.log(resp.status)
+    // if (resp.status===201){
+    //   setEmail(localEmail);
+    //   setPassword(localPassword);
+    //   setIsLoggedIn(true);
+    // }
 
   }
 
@@ -114,7 +126,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
 
 
-        <CustomButton label={"Login"} onPress={login} />
+        <CustomButton label={"Login"} onPress={loginFunc} />
 
         <Text style={{ textAlign: "center", color: "#666", marginBottom: 20 }}>
           Or, Continue with ...
