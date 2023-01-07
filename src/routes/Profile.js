@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { Text } from "react-native-paper";
 import { View,StyleSheet,Animated,Alert,Image } from "react-native";
 import { red400 } from "react-native-paper/lib/commonjs/styles/themes/v2/colors";
 import pfp from "../assets/pfp.png"
+import {Context} from "../../App"
 
 export default function Profile(props) {
-    const details = props
+    
+    const {userDetails} = useContext(Context);
 
     return (
     <View style={styles.container}>
@@ -14,19 +17,19 @@ export default function Profile(props) {
 
         <View style={[styles.detailscard,styles.shadowProp]}>
         <Text style={styles.txtdetails}>
-            User Name: {details.username}
+            Name: {userDetails.name}
         </Text>
         </View>
 
         <View style={[styles.detailscard,styles.shadowProp]}>
         <Text style={styles.txtdetails}>
-            Email: {details.email}
+            Email: {userDetails.email}
         </Text>
         </View>
 
         <View style={[styles.detailscard,styles.shadowProp]}>
         <Text style={styles.txtdetails}>
-            Contributions: {details.contribution}
+            Contributions: 1
         </Text>
         </View>
     </View>

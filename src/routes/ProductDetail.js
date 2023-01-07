@@ -1,12 +1,13 @@
-import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Image, Alert, ScrollView } from 'react-native'
-import { grey200,green400,orange400,red400 } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors'
-
-
+import {useState,useEffect} from 'react';
+import { StyleSheet, Text, View, Image, Alert, ScrollView, TouchableOpacity } from 'react-native';
+import { green800,green400,orange400,red400,red600 } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors';
+import { databases } from '../appwrite/appwriteConfig';
 
 export default function ProductDetail({navigation,route}){
+    
     const productDetail = route.params
-    const level = productDetail.safteyLevel
+    const [hazards,setHazards] = useState([]); 
+
     const getColourLevel = (level)=>{
       switch(level){
         case 1:
@@ -19,12 +20,39 @@ export default function ProductDetail({navigation,route}){
             return red400
       }
     }
-    // console.log(productDetail.safteyLevel)
-    
+
+    const getHazards = async ()=>{
+
+      try{
+        const resp = await databases.listDocuments("63b716cf01cb58dce0fb","63b97c90b5ad83f8682d");
+        const hazardsData = resp.documents.filter((item)=>{
+          if(productDetail.subTitle.includes(item.name)){
+            return {name:item.name,description:item.description}
+          }
+        })
+        console.log(hazardsData.length)
+        setHazards(hazardsData);
+      }
+      catch(error){
+        console.log("hazards not fetched",error)
+      }
+
+    }
+  
+    const getIngredients = ()=>{
+      let ingredientsString = "";
+      productDetail.subTitle.map((text)=>{ingredientsString+=text+" , "})
+      Alert.alert("Ingredients",ingredientsString)
+    }
+  
+  useEffect(()=>{
+    getHazards();
+  },[])
+  
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={{ alignItems: 'center', marginHorizontal: 30 }}>
+        <View style={{ alignItems: 'center', marginHorizontal: 30 ,marginTop:20}}>
           <Image
             style={styles.productImg}
             source={{
@@ -32,15 +60,30 @@ export default function ProductDetail({navigation,route}){
             }}
           />
           <Text style={styles.name}>{productDetail.title}</Text>
-          <Text style={styles.price}>{productDetail.level}</Text>
-          <Text style={styles.description}>
-            Contains: {productDetail.subTitle}
-          </Text>
-          <View style={{width:"80%", height:20, backgroundColor:"white", margin:20, borderRadius:100}}>
-            <View style={{width:"100%",
-              height:20,
-              backgroundColor: getColourLevel(productDetail.safteyLevel)}}/>
+          <Text style={styles.price}>Safety Level {productDetail.level}</Text>
+
+          <TouchableOpacity onPress={getIngredients}>
+            <View style={{width:170,height:50,backgroundColor:green800,alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+              <Text style={{color:"white",fontSize:20}}>
+                Ingredients
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={{width:"99%",marginTop:20,flexDirection:"row",flexWrap:"wrap",justifyContent:"space-evenly"}}>
+            {
+              hazards.map((hazard)=>{
+                return (<TouchableOpacity onPress={()=>Alert.alert(hazard.name,hazard.description)}>
+                  <View style={{width:140,height:40,backgroundColor:red600,alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                    <Text style={{color:"white",fontSize:18}}>
+                      {hazard.name}
+                    </Text>
+                  </View>
+                </TouchableOpacity>)
+              })
+            }
           </View>
+
         </View>
         
       </ScrollView>

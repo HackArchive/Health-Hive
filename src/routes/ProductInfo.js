@@ -15,7 +15,6 @@ export default function ProductInfo({navigation}) {
 
     const {searchQuery,setSearchQuery,setUserDetails,products,setProducts} = useContext(Context);
   
-    const onChangeSearch = (query) => setSearchQuery(query);
 
     const renderProduct = ({item})=>(
             <Product 
@@ -66,7 +65,7 @@ export default function ProductInfo({navigation}) {
             <Searchbar
             placeholder="Search"
             style={styles.searchBar}
-            onChangeText={onChangeSearch}
+            onChangeText={(query) => setSearchQuery(query)}
             value={searchQuery}
             />
             <View style={styles.ScanButton}>
