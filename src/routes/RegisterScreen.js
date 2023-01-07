@@ -10,13 +10,13 @@ import {
 
 import CustomButton from "../components/CustomButton";
 
-import 'react-native-get-random-values';
+import "react-native-get-random-values";
 import { account } from "../appwrite/appwriteConfig";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import RegistrationSVG from "../assets/images/misc/registration.svg";
+import LogoWithName from "../assets/images/misc/logoWithName.svg";
 import GoogleSVG from "../assets/images/misc/google.svg";
 import FacebookSVG from "../assets/images/misc/facebook.svg";
 
@@ -25,23 +25,15 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const register = async ()=>{
-    
-    try{
-        const resp = await account.create(
-          uuidv4(),
-          email,
-          password,
-          name
-        );
-        console.log(resp.status,"user created");
-        navigation.navigate("Login");
-
-    } catch(error){
-      console.log("error",error);
-    }    
-  }
-
+  const register = async () => {
+    try {
+      const resp = await account.create(uuidv4(), email, password, name);
+      console.log(resp.status, "user created");
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
@@ -50,11 +42,7 @@ const RegisterScreen = ({ navigation }) => {
         style={{ paddingHorizontal: 25 }}
       >
         <View style={{ alignItems: "center" }}>
-          <RegistrationSVG
-            height={300}
-            width={300}
-            style={{ transform: [{ rotate: "-5deg" }] }}
-          />
+          <LogoWithName height={300} width={300} style={{ marginTop: 50 }} />
         </View>
 
         <Text
@@ -62,7 +50,7 @@ const RegisterScreen = ({ navigation }) => {
             fontSize: 28,
             fontWeight: "500",
             color: "#333",
-            marginBottom: 30,
+            marginBottom: 15,
           }}
         >
           Register
@@ -72,7 +60,7 @@ const RegisterScreen = ({ navigation }) => {
           style={{
             flexDirection: "row",
             justifyContent: "space-around",
-            marginBottom: 30,
+            marginBottom: 20,
           }}
         >
           <TouchableOpacity
@@ -101,33 +89,33 @@ const RegisterScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={{ textAlign: "center", color: "#666", marginBottom: 30 }}>
+        <Text style={{ textAlign: "center", color: "#666", marginBottom: 15 }}>
           Or, register with email ...
         </Text>
 
-      {/* Name */}
-      <View
-        style={{
-          flexDirection: "row",
-          borderBottomColor: "#ccc",
-          borderBottomWidth: 1,
-          paddingBottom: 8,
-          marginBottom: 25,
-        }}
-      >
-        <Ionicons
-          name="person-outline"
-          size={20}
-          color="#666"
-          style={{ marginRight: 5 }}
-        />
+        {/* Name */}
+        <View
+          style={{
+            flexDirection: "row",
+            borderBottomColor: "#ccc",
+            borderBottomWidth: 1,
+            paddingBottom: 8,
+            marginBottom: 25,
+          }}
+        >
+          <Ionicons
+            name="person-outline"
+            size={20}
+            color="#666"
+            style={{ marginRight: 5 }}
+          />
           <TextInput
             placeholder={"Name"}
             style={{ flex: 1, paddingVertical: 0 }}
             value={name}
-            onChangeText={(text)=>setName(text)}
+            onChangeText={(text) => setName(text)}
           />
-      </View>
+        </View>
 
         {/* emailid */}
         <View
@@ -139,47 +127,46 @@ const RegisterScreen = ({ navigation }) => {
             marginBottom: 25,
           }}
         >
-        <MaterialIcons
-              name="alternate-email"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
+          <MaterialIcons
+            name="alternate-email"
+            size={20}
+            color="#666"
+            style={{ marginRight: 5 }}
+          />
           <TextInput
             placeholder={"Email ID"}
             keyboardType="email-address"
             style={{ flex: 1, paddingVertical: 0 }}
             value={email}
-            onChangeText={(text)=>setEmail(text)}
+            onChangeText={(text) => setEmail(text)}
           />
-      </View>
+        </View>
 
-      {/* password */}
-      <View
-        style={{
-          flexDirection: "row",
-          borderBottomColor: "#ccc",
-          borderBottomWidth: 1,
-          paddingBottom: 8,
-          marginBottom: 25,
-        }}
+        {/* password */}
+        <View
+          style={{
+            flexDirection: "row",
+            borderBottomColor: "#ccc",
+            borderBottomWidth: 1,
+            paddingBottom: 8,
+            marginBottom: 25,
+          }}
         >
           <Ionicons
-                name="ios-lock-closed-outline"
-                size={20}
-                color="#666"
-                style={{ marginRight: 5 }}
-              />
+            name="ios-lock-closed-outline"
+            size={20}
+            color="#666"
+            style={{ marginRight: 5 }}
+          />
           <TextInput
             placeholder={"Password"}
             keyboardType="password"
             secureTextEntry={true}
             style={{ flex: 1, paddingVertical: 0 }}
             value={password}
-            onChangeText={(text)=>setPassword(text)}
+            onChangeText={(text) => setPassword(text)}
           />
-      </View>
-
+        </View>
 
         <CustomButton label={"Register"} onPress={register} />
 

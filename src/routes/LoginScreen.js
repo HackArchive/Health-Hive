@@ -1,4 +1,4 @@
-import {useContext,useState} from "react";
+import { useContext, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -11,48 +11,34 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import LoginSVG from "../assets/images/misc/login.svg";
+import LogoWithName from "../assets/images/misc/logoWithName.svg";
 import GoogleSVG from "../assets/images/misc/google.svg";
 import FacebookSVG from "../assets/images/misc/facebook.svg";
 
 import CustomButton from "../components/CustomButton";
-import InputField from "../components/InputField";
 import { Context } from "../../App";
-import {account} from "../appwrite/appwriteConfig";
+import { account } from "../appwrite/appwriteConfig";
 
 const LoginScreen = ({ navigation }) => {
+  const { setIsLoggedIn } = useContext(Context);
+  const [localEmail, setLocalEmail] = useState("");
+  const [localPassword, setLocalPassword] = useState("");
 
-  const {setIsLoggedIn} = useContext(Context);
-  const [localEmail,setLocalEmail] = useState('');
-  const [localPassword,setLocalPassword] = useState('');
+  const loginFunc = async () => {
+    try {
+      const resp = await account.createEmailSession(localEmail, localPassword);
 
-  const loginFunc = async ()=>{
-
-    try{
-      
-        const resp = await account.createEmailSession(
-          localEmail,
-          localPassword
-        )
-
-        setIsLoggedIn(true);
-
-    } catch(error){
-      console.log("error",error);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.log("error", error);
     }
-
-  }
-
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
       <View style={{ paddingHorizontal: 25 }}>
         <View style={{ alignItems: "center" }}>
-          <LoginSVG
-            height={300}
-            width={300}
-            style={{ transform: [{ rotate: "-5deg" }] }}
-          />
+          <LogoWithName height={300} width={300} style={{ marginTop: 50 }} />
         </View>
 
         <Text
@@ -60,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
             fontSize: 28,
             fontWeight: "500",
             color: "#333",
-            marginBottom: 30,
+            marginBottom: 25,
           }}
         >
           Login
@@ -74,22 +60,21 @@ const LoginScreen = ({ navigation }) => {
             paddingBottom: 8,
             marginBottom: 25,
           }}
-          >
-            <MaterialIcons
-                  name="alternate-email"
-                  size={20}
-                  color="#666"
-                  style={{ marginRight: 5 }}
-                />
-            <TextInput
-              placeholder={"Email ID"}
-              keyboardType="email-address"
-              style={{ flex: 1, paddingVertical: 0 }}
-              value={localEmail}
-              onChangeText={(text) => setLocalEmail(text)}
-            />
+        >
+          <MaterialIcons
+            name="alternate-email"
+            size={20}
+            color="#666"
+            style={{ marginRight: 5 }}
+          />
+          <TextInput
+            placeholder={"Email ID"}
+            keyboardType="email-address"
+            style={{ flex: 1, paddingVertical: 0 }}
+            value={localEmail}
+            onChangeText={(text) => setLocalEmail(text)}
+          />
         </View>
-
 
         <View
           style={{
@@ -99,28 +84,25 @@ const LoginScreen = ({ navigation }) => {
             paddingBottom: 8,
             marginBottom: 25,
           }}
-          >
-            <Ionicons
-                  name="ios-lock-closed-outline"
-                  size={20}
-                  color="#666"
-                  style={{ marginRight: 5 }}
-                />
-            <TextInput
-              placeholder={"Password"}
-              keyboardType="password"
-              style={{ flex: 1, paddingVertical: 0 }}
-              value={localPassword}
-              onChangeText={(text) => setLocalPassword(text)}
-              secureTextEntry={true}
-            />
-            <TouchableOpacity onPress={()=>alert("why you forgot")}>
-              <Text style={{ color: "#ef5350", fontWeight: "700" }}>
-                Forgot
-              </Text>
-            </TouchableOpacity>
+        >
+          <Ionicons
+            name="ios-lock-closed-outline"
+            size={20}
+            color="#666"
+            style={{ marginRight: 5 }}
+          />
+          <TextInput
+            placeholder={"Password"}
+            keyboardType="password"
+            style={{ flex: 1, paddingVertical: 0 }}
+            value={localPassword}
+            onChangeText={(text) => setLocalPassword(text)}
+            secureTextEntry={true}
+          />
+          <TouchableOpacity onPress={() => alert("why you forgot")}>
+            <Text style={{ color: "#ef5350", fontWeight: "700" }}>Forgot</Text>
+          </TouchableOpacity>
         </View>
-
 
         <CustomButton label={"Login"} onPress={loginFunc} />
 
@@ -132,7 +114,7 @@ const LoginScreen = ({ navigation }) => {
           style={{
             flexDirection: "row",
             justifyContent: "space-around",
-            marginBottom: 30,
+            marginBottom: 20,
           }}
         >
           <TouchableOpacity

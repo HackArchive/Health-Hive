@@ -1,140 +1,136 @@
-import {useContext,useEffect, useState} from 'react';
-import { StyleSheet,View,FlatList, Image} from 'react-native';
-import { Searchbar,Text,IconButton } from 'react-native-paper';
-import { red400,white } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors';
-import Product from '../components/Product';
-import { Context } from '../../App';
-import { account,databases } from "../appwrite/appwriteConfig"
+import { useContext, useEffect, useState } from "react";
+import { StyleSheet, View, FlatList, Image } from "react-native";
+import { Searchbar, Text, IconButton } from "react-native-paper";
+import {
+  red400,
+  white,
+} from "react-native-paper/lib/commonjs/styles/themes/v2/colors";
+import Product from "../components/Product";
+import { Context } from "../../App";
+import { account, databases } from "../appwrite/appwriteConfig";
+import InAppLogo from "../assets/images/misc/inAppLogo.svg";
 
+export default function ProductInfo({ navigation }) {
+  const { searchQuery, setSearchQuery, setUserDetails, products, setProducts } =
+    useContext(Context);
 
+  const renderProduct = ({ item }) => (
+    <Product
+      id={item["$id"]}
+      title={item["name"]}
+      subTitle={item["ingredients"]}
+      image={item["image"]}
+      level={item["level"]}
+      navigation={navigation}
+    />
+  );
 
-
-
-
-export default function ProductInfo({navigation}) {
-
-    const {searchQuery,setSearchQuery,setUserDetails,products,setProducts} = useContext(Context);
-
-    const renderProduct = ({item})=>(
-            <Product 
-                id={item["$id"]}
-                title={item["name"]}
-                subTitle={item["ingredients"]}
-                image={item["image"]}
-                level={item["level"]}
-                navigation={navigation}
-            />
-    )
-    
-    const getData = async ()=>{
-        try{
-            const resp = await account.get();
-            setUserDetails(resp);
-    
-        } catch(error){
-            console.log(error);
-        }
-    
-        try{
-            const resp = await databases.listDocuments("63b716cf01cb58dce0fb","63b7170360ba29961166");
-            let searchedData = null; 
-            if (searchQuery.trim()!==""){
-                searchedData = resp.documents.filter((item)=>{
-                    if (  ( item.barcode !== null && item.barcode.includes(searchQuery)) || item.name.toLowerCase().includes(searchQuery.toLowerCase().trim())){
-                        return item;
-                    }
-                })
-            }
-            if (searchedData===null){
-                setProducts(resp.documents);
-            } else{
-                setProducts(searchedData);
-            }
-
-        } catch(error){
-            console.log("error in db",error);
-        }
+  const getData = async () => {
+    try {
+      const resp = await account.get();
+      setUserDetails(resp);
+    } catch (error) {
+      console.log(error);
     }
 
-    useEffect(()=>{
-        
-        getData();
-     
-    },[searchQuery])
+    try {
+      const resp = await databases.listDocuments(
+        "63b716cf01cb58dce0fb",
+        "63b7170360ba29961166"
+      );
+      let searchedData = null;
+      if (searchQuery.trim() !== "") {
+        searchedData = resp.documents.filter((item) => {
+          if (
+            (item.barcode !== null && item.barcode.includes(searchQuery)) ||
+            item.name.toLowerCase().includes(searchQuery.toLowerCase().trim())
+          ) {
+            return item;
+          }
+        });
+      }
+      if (searchedData === null) {
+        setProducts(resp.documents);
+      } else {
+        setProducts(searchedData);
+      }
+    } catch (error) {
+      console.log("error in db", error);
+    }
+  };
 
-    return(
+  useEffect(() => {
+    getData();
+  }, [searchQuery]);
+
+  return (
     <>
-        <View style={styles.staticDesign}>
-            {/* <Text style={styles.Title}>
+      <View style={styles.staticDesign}>
+        {/* <Text style={styles.Title}>
                 CAN EAT
             </Text>
             <Text style={{fontSize:14,color:"#FFFF00",marginTop:10}}>
                 know before you eat
             </Text> */}
-            <Image style={{width:250,height:250}} source={require("../../assets/icon.png")} />
-        </View>
-        <View style={styles.searchBarRoot}>
-            <Searchbar
-            placeholder="Search"
-            style={styles.searchBar}
-            onChangeText={(query) => setSearchQuery(query)}
-            value={searchQuery}
-            />
-            <View style={styles.ScanButton}>
-                <IconButton 
-                    icon="barcode-scan"
-                    iconColor={white}
-                    size={25}
-                    onPress={()=>navigation.navigate("Scanner")}
-                    />
-            </View>
-        </View>
-        <FlatList
-            style={{marginTop:20}}
-            data={products}
-            renderItem={renderProduct}
-            keyExtractor={(product)=>product.id}
+        {/* <Image style={{width:250,height:250}} source={require("../../assets/icon.png")} /> */}
+        <InAppLogo height={250} width={140} style={{ marginTop: 20 }} />
+      </View>
+      <View style={styles.searchBarRoot}>
+        <Searchbar
+          placeholder="Search"
+          style={styles.searchBar}
+          onChangeText={(query) => setSearchQuery(query)}
+          value={searchQuery}
         />
-        
+        <View style={styles.ScanButton}>
+          <IconButton
+            icon="barcode-scan"
+            iconColor={white}
+            size={25}
+            onPress={() => navigation.navigate("Scanner")}
+          />
+        </View>
+      </View>
+      <FlatList
+        style={{ marginTop: 20 }}
+        data={products}
+        renderItem={renderProduct}
+        keyExtractor={(product) => product.id}
+      />
     </>
-    )
-
+  );
 }
 
-
-
 const styles = StyleSheet.create({
-    staticDesign:{
-        backgroundColor:red400,
-        width:"100%",
-        height:200,
-        borderBottomLeftRadius:30,
-        borderBottomRightRadius:30,
-        justifyContent:"center",
-        alignItems:"center"
-    },
-    Title: {
-        fontSize:50,
-        color:white,
-        fontWeight:"bold"
-    },  
-    searchBarRoot:{
-        width:'100%',
-        alignItems:'center',
-        marginTop:50,
-        flexDirection:'row',
-        justifyContent:'space-evenly'
-    },
-    searchBar: {
-        width:'75%',
-        borderRadius:50
-
-    },
-    ScanButton:{
-        backgroundColor:red400,
-        justifyContent:'center',
-        alignItems:'center',
-        borderRadius:50,
-
-    }
-})
+  staticDesign: {
+    backgroundColor: red400,
+    width: "100%",
+    height: 200,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  Title: {
+    fontSize: 50,
+    color: white,
+    fontWeight: "bold",
+  },
+  searchBarRoot: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 50,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  searchBar: {
+    width: "75%",
+    borderRadius: 50,
+  },
+  ScanButton: {
+    backgroundColor: red400,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
+  },
+});

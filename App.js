@@ -70,7 +70,7 @@ export default function App() {
 
   return (
     <Context.Provider value={contextValue}>
-      {!isLoggedIn ? (
+      {isLoggedIn ? (
         <NavigationContainer>
           <AuthStack.Navigator screenOptions={{ headerShown: false }}>
             <AuthStack.Screen name="Login" component={LoginScreen} />
