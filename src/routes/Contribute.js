@@ -74,7 +74,7 @@ export default function Contribute(){
                         Win awesome NFTs and rewards!
                     </Text>
             </View>
-            <View style={{height:400}}>
+            <View style={{height:330}}>
                 <ScrollView style={styles.form}>
                     <TextInput style={styles.txtinput} 
                         value={name}

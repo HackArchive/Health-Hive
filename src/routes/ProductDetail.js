@@ -69,7 +69,8 @@ export default function ProductDetail({navigation,route}){
               </Text>
             </View>
           </TouchableOpacity>
-
+          
+    
           <View style={{width:"99%",marginTop:20,flexDirection:"row",flexWrap:"wrap",justifyContent:"space-evenly"}}>
             {
               hazards.map((hazard)=>{
@@ -83,6 +84,7 @@ export default function ProductDetail({navigation,route}){
               })
             }
           </View>
+
 
         </View>
         
