@@ -1,4 +1,4 @@
-import {useContext,useEffect} from 'react';
+import {useContext,useEffect, useState} from 'react';
 import { StyleSheet,View,FlatList, Image} from 'react-native';
 import { Searchbar,Text,IconButton } from 'react-native-paper';
 import { red400,white } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors';
@@ -14,7 +14,6 @@ import { account,databases } from "../appwrite/appwriteConfig"
 export default function ProductInfo({navigation}) {
 
     const {searchQuery,setSearchQuery,setUserDetails,products,setProducts} = useContext(Context);
-  
 
     const renderProduct = ({item})=>(
             <Product 
@@ -38,7 +37,20 @@ export default function ProductInfo({navigation}) {
     
         try{
             const resp = await databases.listDocuments("63b716cf01cb58dce0fb","63b7170360ba29961166");
-            setProducts(resp.documents);
+            let searchedData = null; 
+            if (searchQuery.trim()!==""){
+                searchedData = resp.documents.filter((item)=>{
+                    if (  ( item.barcode !== null && item.barcode.includes(searchQuery)) || item.name.toLowerCase().includes(searchQuery.toLowerCase().trim())){
+                        return item;
+                    }
+                })
+            }
+            if (searchedData===null){
+                setProducts(resp.documents);
+            } else{
+                setProducts(searchedData);
+            }
+
         } catch(error){
             console.log("error in db",error);
         }
@@ -48,7 +60,7 @@ export default function ProductInfo({navigation}) {
         
         getData();
      
-    },[])
+    },[searchQuery])
 
     return(
     <>
