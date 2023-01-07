@@ -7,9 +7,6 @@ import { grey200,green400,orange400,red400 } from 'react-native-paper/lib/common
 export default function ProductDetail({navigation,route}){
     const productDetail = route.params
     const level = productDetail.safteyLevel
-    const clickEventListener = () => {
-        Alert.alert('Success', 'Product has been added to cart')
-    }
     const getColourLevel = (level)=>{
       switch(level){
         case 1:
@@ -23,6 +20,7 @@ export default function ProductDetail({navigation,route}){
       }
     }
     // console.log(productDetail.safteyLevel)
+    
   return (
     <View style={styles.container}>
       <ScrollView>

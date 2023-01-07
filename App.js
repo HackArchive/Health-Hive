@@ -12,6 +12,7 @@ import Analyse from './src/routes/Analyse';
 import ProductDetail from './src/routes/ProductDetail';
 import LoginScreen from "./src/routes/LoginScreen";
 import RegisterScreen from "./src/routes/RegisterScreen";
+import Profile from './src/routes/Profile';
 
 const Context = createContext();
 const AuthStack = createStackNavigator();
@@ -45,13 +46,15 @@ export default function App() {
     { key: 'home', title: 'Home', focusedIcon: 'home', unfocusedIcon: 'home-outline'},
     { key: 'contribute', title: 'Contribute', focusedIcon: 'plus' },
     { key: 'analyse', title: 'Analyse', focusedIcon: 'food', unfocusedIcon: 'food-outline' },
+    { key: 'profile', title: 'Profile', focusedIcon: 'account', unfocusedIcon: 'account'}
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     home: Home,
     contribute: Contribute,
     analyse: Analyse,
-    productDetail:ProductDetail
+    productDetail:ProductDetail,
+    profile:Profile
   });
 
 
@@ -63,6 +66,14 @@ export default function App() {
     <Context.Provider value={contextValue}>
       {
         isLoggedIn ?
+        <NavigationContainer>
+        <AuthStack.Navigator>
+          <AuthStack.Screen name="Login" component={LoginScreen} />
+          <AuthStack.Screen name="Register" component={RegisterScreen} />
+        </AuthStack.Navigator>
+      </NavigationContainer>
+
+        :
         <SafeAreaProvider>
           <Provider>
             <BottomNavigation
@@ -72,13 +83,6 @@ export default function App() {
             />
           </Provider>
         </SafeAreaProvider>
-        :
-        <NavigationContainer>
-          <AuthStack.Navigator>
-            <AuthStack.Screen name="Login" component={LoginScreen} />
-            <AuthStack.Screen name="Register" component={RegisterScreen} />
-          </AuthStack.Navigator>
-        </NavigationContainer>
       }
     </Context.Provider>
 

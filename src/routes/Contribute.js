@@ -1,6 +1,6 @@
 import { useState,useRef,useContext } from "react";
 import { Text, Button, TextInput,  } from "react-native-paper";
-import { View,StyleSheet,Animated,Alert } from "react-native";
+import { View,StyleSheet,Alert } from "react-native";
 import { grey200, red400,white } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors';
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Context } from "../../App";
@@ -16,8 +16,6 @@ export default function Contribute(){
     const {barcode, setBarcode} = useContext(Context);
     const [price, setPrice] = useState("");
 
-
-    const offset = useRef(new Animated.Value(0)).current;
 
     return(
         <SafeAreaProvider>
