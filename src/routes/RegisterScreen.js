@@ -9,36 +9,37 @@ import {
 } from "react-native";
 
 import CustomButton from "../components/CustomButton";
-import InputField from "../components/InputField";
 
+import 'react-native-get-random-values';
+import { account } from "../appwrite/appwriteConfig";
+import {v4 as uuidv4} from 'uuid';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import RegistrationSVG from "../assets/images/misc/registration.svg";
 import GoogleSVG from "../assets/images/misc/google.svg";
 import FacebookSVG from "../assets/images/misc/facebook.svg";
-import { BASE_URL,endpoints } from "../../config";
 
 const RegisterScreen = ({ navigation }) => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
   const register = async ()=>{
-    const resp = await fetch(BASE_URL+endpoints.register,{
-      method:'POST',
-      body:JSON.stringify({
-        userId:username,
-        email:email,
-        password:password
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
+    
+    try{
+        const resp = await account.create(
+          uuidv4(),
+          email,
+          password,
+          name
+        );
+        console.log(resp.status,"user created");
+        navigation.navigate("Login");
 
-    console.log(resp.status)
-
+    } catch(error){
+      console.log("error",error);
+    }    
   }
 
 
@@ -121,10 +122,10 @@ const RegisterScreen = ({ navigation }) => {
           style={{ marginRight: 5 }}
         />
           <TextInput
-            placeholder={"Username"}
+            placeholder={"Name"}
             style={{ flex: 1, paddingVertical: 0 }}
-            value={username}
-            onChangeText={(text)=>setUsername(text)}
+            value={name}
+            onChangeText={(text)=>setName(text)}
           />
       </View>
 

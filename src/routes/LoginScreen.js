@@ -18,32 +18,28 @@ import FacebookSVG from "../assets/images/misc/facebook.svg";
 import CustomButton from "../components/CustomButton";
 import InputField from "../components/InputField";
 import { Context } from "../../App";
-import { BASE_URL,endpoints } from "../../config";
+import {account} from "../appwrite/appwriteConfig";
 
 const LoginScreen = ({ navigation }) => {
 
-  const {setEmail,setPassword,setIsLoggedIn} = useContext(Context);
+  const {setIsLoggedIn} = useContext(Context);
   const [localEmail,setLocalEmail] = useState('');
   const [localPassword,setLocalPassword] = useState('');
 
   const loginFunc = async ()=>{
 
-    const resp = await fetch(BASE_URL+endpoints.login,{
-      method:'POST',
-      body:JSON.stringify({
-        email:localEmail,
-        password:localPassword
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
-    console.log(resp.status)
-    // if (resp.status===201){
-    //   setEmail(localEmail);
-    //   setPassword(localPassword);
-    //   setIsLoggedIn(true);
-    // }
+    try{
+      
+        const resp = await account.createEmailSession(
+          localEmail,
+          localPassword
+        )
+
+        setIsLoggedIn(true);
+
+    } catch(error){
+      console.log("error",error);
+    }
 
   }
 

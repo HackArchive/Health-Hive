@@ -24,9 +24,9 @@ export default function Product(props) {
         title:props.title,
         image:props.image,
         subTitle:props.subTitle,
-        safteyLevel:props.safteyLevel,
+        level:props.level,
     }
-
+    
     const getLevelColor = (level)=>{
 
         switch (level){
@@ -68,6 +68,7 @@ export default function Product(props) {
           style={{
             flexDirection: "row",
             justifyContent: "center",
+            alignItems:"center",
             alignItems: "center"
           }}
             >
@@ -100,21 +101,26 @@ export default function Product(props) {
               >
                 {props.title}
               </Text>
+                
               <Text
-                style={{
-                  width: scale(150),
-                  color: "#adb3bf",
-                  textAlign: "justify",
-                  fontSize: 12,
-                  fontWeight: "400",
-                  letterSpacing: -0.29,
-                  lineHeight: scale(16),
-                  marginTop: scale(10),
-                  marginBottom: scale(10)
-                }}
-              >
-                {props.subTitle}
+                  style={{
+                    width: scale(150),
+                    color: "#adb3bf",
+                    textAlign: "justify",
+                    fontSize: 12,
+                    fontWeight: "400",
+                    letterSpacing: -0.29,
+                    lineHeight: scale(16),
+                    marginTop: scale(10),
+                    marginBottom: scale(10)
+                  }}
+                >
+                {
+                  props.subTitle.slice(0,3).map((text)=>text+" , ")
+                }
+                ...
               </Text>
+
               <View
                 style={{
                   flexDirection: "row",

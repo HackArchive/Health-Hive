@@ -1,54 +1,55 @@
-import {useContext} from 'react';
+import {useContext,useEffect} from 'react';
 import { StyleSheet,View,FlatList, Image} from 'react-native';
 import { Searchbar,Text,IconButton } from 'react-native-paper';
 import { red400,white } from 'react-native-paper/lib/commonjs/styles/themes/v2/colors';
 import Product from '../components/Product';
 import { Context } from '../../App';
+import { account,databases } from "../appwrite/appwriteConfig"
 
 
 
-const product_data = [
-    {
-        id:1,
-        title:"Kurkure",
-        image:"https://imgs.search.brave.com/WJbLPD78B-TRMnQ6pQKxrErNoG1STfEMJ1oVDxzoA5o/rs:fit:900:900:1/g:ce/aHR0cHM6Ly9pNS53/YWxtYXJ0aW1hZ2Vz/LmNhL2ltYWdlcy9F/bmxhcmdlLzExOC84/NjMvNjAwMDIwMDEx/ODg2My5qcGc",
-        subTitle:"Meth1",
-        safteyLevel:1,
-    },
-    {
-        id:2,
-        title:"Masala Oats",
-        image:"https://imgs.search.brave.com/jxsot4CnHQrapMThrTVt4K0Ivy6ueEnaBiSghxZogo0/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzcxUUpyUEdEY0RM/Ll9TTDE1MDBfLmpw/Zw",
-        subTitle:"Meth",
-        safteyLevel:2,
-    },
-    {
-        id:3,
-        title:"Maggi",
-        image:"https://imgs.search.brave.com/ymgcJXqAAG9jkeH971524DXufXUtw6eEOYj2pIS1R5U/rs:fit:640:640:1/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc2FpbnNidXJ5/cy1ncm9jZXJpZXMu/Y28udWsvZ29sLzc5/NTI5MTAvMS82NDB4/NjQwLmpwZw",
-        subTitle:"Meth",
-        safteyLevel:3,
-    }
-]
+
 
 
 export default function ProductInfo({navigation}) {
 
-    const {searchQuery, setSearchQuery} = useContext(Context);
+    const {searchQuery,setSearchQuery,setUserDetails,products,setProducts} = useContext(Context);
   
     const onChangeSearch = (query) => setSearchQuery(query);
 
     const renderProduct = ({item})=>(
             <Product 
-                id={item.id}
-                title={item.title}
-                subTitle={item.subTitle}
-                image={item.image}
-                level={item.safteyLevel}
+                id={item["$id"]}
+                title={item["name"]}
+                subTitle={item["ingredients"]}
+                image={item["image"]}
+                level={item["level"]}
                 navigation={navigation}
             />
     )
     
+    const getData = async ()=>{
+        try{
+            const resp = await account.get();
+            setUserDetails(resp);
+    
+        } catch(error){
+            console.log(error);
+        }
+    
+        try{
+            const resp = await databases.listDocuments("63b716cf01cb58dce0fb","63b7170360ba29961166");
+            setProducts(resp.documents);
+        } catch(error){
+            console.log("error in db",error);
+        }
+    }
+
+    useEffect(()=>{
+        
+        getData();
+     
+    },[])
 
     return(
     <>
@@ -79,7 +80,7 @@ export default function ProductInfo({navigation}) {
         </View>
         <FlatList
             style={{marginTop:20}}
-            data={product_data}
+            data={products}
             renderItem={renderProduct}
             keyExtractor={(product)=>product.id}
         />

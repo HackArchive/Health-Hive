@@ -25,21 +25,21 @@ export default function App() {
   const [barcode,setBarcode] = useState('');
   const [searchQuery,setSearchQuery] = useState('');
   const [isLoggedIn,setIsLoggedIn] = useState(false);
-  const [email,setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [userDetails,setUserDetails] = useState(null);
+  const [products,setProducts] = useState([]);
 
   const contextValue = {
     barcode,
     searchQuery,
-    email,
-    password,
     isLoggedIn,
+    userDetails,
+    products,
 
+    setProducts,
     setBarcode,
     setSearchQuery,
-    setEmail,
-    setPassword,
-    setIsLoggedIn
+    setIsLoggedIn,
+    setUserDetails
   }
 
   const [routes] = useState([
