@@ -71,22 +71,22 @@ export default function App() {
   return (
     <Context.Provider value={contextValue}>
       {isLoggedIn ? (
-        <NavigationContainer>
-          <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-            <AuthStack.Screen name="Login" component={LoginScreen} />
-            <AuthStack.Screen name="Register" component={RegisterScreen} />
-          </AuthStack.Navigator>
-        </NavigationContainer>
-      ) : (
         <SafeAreaProvider>
-          <Provider>
-            <BottomNavigation
-              navigationState={{ index, routes }}
-              onIndexChange={setIndex}
-              renderScene={renderScene}
-            />
-          </Provider>
-        </SafeAreaProvider>
+        <Provider>
+          <BottomNavigation
+            navigationState={{ index, routes }}
+            onIndexChange={setIndex}
+            renderScene={renderScene}
+          />
+        </Provider>
+      </SafeAreaProvider>
+      ) : (
+        <NavigationContainer>
+        <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+          <AuthStack.Screen name="Login" component={LoginScreen} />
+          <AuthStack.Screen name="Register" component={RegisterScreen} />
+        </AuthStack.Navigator>
+      </NavigationContainer>
       )}
     </Context.Provider>
   );
