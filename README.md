@@ -51,3 +51,47 @@ One feature we are particularly excited about is the inclusion of non-fungible t
 We are also open to other suggestions and ideas from users, and welcome feedback on how we can improve and expand the app. 🤗
 
 Overall, we hope that HealthHive will continue to be a valuable tool for anyone looking to make more informed and healthy food choices. With its easy-to-use QR code scanner and comprehensive database of nutritional information, as well as the ability to track and analyze a user's intake, we believe HealthHive has the potential to make a positive impact on people's lives. 💪
+
+## 👀 Demo / Screenshots
+
+### 1.Login Screen
+
+<img src="assets/screenshot/msg1372739222-1644.jpg">  
+<br/>
+<br/>
+
+### 2.Register Screen
+
+<img src="assets/screenshot/msg1372739222-1643.jpg">
+<br/>
+<br/>
+
+### 3.Home Screen
+
+<img src="assets/screenshot/msg1372739222-1642.jpg">
+<br/>
+<br/>
+
+### 4. Search with Barcode Scanner
+
+<img src="assets/screenshot/msg1372739222-1632.jpg">
+<br/>
+<br/>
+
+### 5. Product Information
+
+<img src="assets/screenshot/msg1372739222-1640.jpg">
+<br/>
+<br/>
+
+### 5. Ingredients Analyzer
+
+<img src="assets/screenshot/msg1372739222-1634.jpg">
+<br/>
+<br/>
+
+### 6. Ingredients Analyzer
+
+<img src="assets/screenshot/msg1372739222-1636.jpg">
+<br/>
+<br/>
