@@ -34,10 +34,7 @@ const extractIngr = (data) => {
 
 export default function Analyse() {
   const [errStatusCode, setErrStatusCode] = useState(0); // 0 -> api not called 500-> failed 200 -> succes
-  const initMessage = `
-            1 Carrot,
-            3 Onion
-        `;
+  const initMessage = "1 Carrot,3 Onion";
 
   const [text, setText] = useState(initMessage);
   const [tableData, setTableData] = useState([]);
@@ -184,15 +181,15 @@ const styles = StyleSheet.create({
   },
   root: {
     width: "95%",
-    height: 330,
+    height: 200,
     backgroundColor: "#F2F5F9",
     justifyContent: "center",
     alignItems: "center",
   },
   RecipeInput: {
     width: "90%",
-    height: 200,
-    padding: 50,
+    height: 80,
+    padding: 20,
     backgroundColor: white,
     borderWidth: 1,
     borderColor: "#DCDDDC",
