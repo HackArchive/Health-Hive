@@ -118,7 +118,7 @@ export default function ProductDetail({navigation,route}){
           </Text>
           <Text>* Amount per serving 100 g/100 ml (approx)</Text>
           <View style={{width:"99%",marginTop:0 ,flexDirection:"row",flexWrap:"wrap",justifyContent:"space-evenly"}}>
-            <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+            <View style={{width:190,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
                 {
                   productDetail.level > 1 ? (
                     <Text style={{color:"white",fontSize:18}}>
@@ -131,7 +131,7 @@ export default function ProductDetail({navigation,route}){
                   )
                 }
             </View>
-            <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+            <View style={{width:190,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
               {
                 productDetail.level > 1 ? (
                   <Text style={{color:"white",fontSize:18}}>
@@ -147,17 +147,17 @@ export default function ProductDetail({navigation,route}){
             {
               productDetail.level == 1 && (
                 <>  
-                  <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                  <View style={{width:190,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
                     <Text style={{color:"white",fontSize:18}}>
                     Vit. C - 42mg
                     </Text>
                   </View>
-                  <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                  <View style={{width:190,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
                     <Text style={{color:"white",fontSize:18}}>
                     Vit. A - 115mcg
                     </Text>
                   </View>
-                  <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                  <View style={{width:190,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
                     <Text style={{color:"white",fontSize:18}}>
                     Vit. E - 1.88mg
                       </Text>
@@ -167,13 +167,13 @@ export default function ProductDetail({navigation,route}){
             }
             {
                 productDetail.level > 1 && (
-                <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                <View style={{width:190,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
                   <Text style={{color:"white",fontSize:18}}>
                     Protein - 8.2 g
                   </Text>
                 </View>
             )}
-            <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+            <View style={{width:190,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
               {
                 productDetail.level > 1 ? (
                   <Text style={{color:"white",fontSize:18}}>
