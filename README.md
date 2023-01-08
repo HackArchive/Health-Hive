@@ -1,8 +1,6 @@
-# Food-Insight
+# HealthHive
 
 Know about what goes in you food
-
-## 🐝 HealthHive 🐝
 
 ## 💡 Inspiration
 
