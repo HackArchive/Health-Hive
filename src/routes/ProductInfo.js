@@ -21,6 +21,10 @@ export default function ProductInfo({ navigation }) {
       subTitle={item["ingredients"]}
       image={item["image"]}
       level={item["level"]}
+      fat={item["fat"]}
+      energy={item["energy"]}
+      protein={item["protein"]}
+      carbs={item["carbs"]}
       navigation={navigation}
     />
   );

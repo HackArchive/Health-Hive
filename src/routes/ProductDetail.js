@@ -76,24 +76,118 @@ export default function ProductDetail({navigation,route}){
             </View>
           </TouchableOpacity>
           
-    
-          <View style={{width:"99%",marginTop:20,flexDirection:"row",flexWrap:"wrap",justifyContent:"space-evenly"}}>
-            {
-              hazards.map((hazard)=>{
-                return (<TouchableOpacity onPress={()=>Alert.alert(hazard.name,hazard.description)}>
-                  <View style={{width:140,height:40,backgroundColor:red600,alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
-                    <Text style={{color:"white",fontSize:18}}>
-                      {hazard.name}
-                    </Text>
-                  </View>
-                </TouchableOpacity>)
-              })
-            }
-          </View>
-
+          {hazards.length > 0 && (
+            <>
+            <Text
+              style={{
+                fontSize: 28,
+                fontWeight: "500",
+                color: "#333",
+                marginTop: 35,
+              }}
+            >
+              Harmful Contents
+            </Text>
+              <View style={{width:"99%",marginTop:-10 ,flexDirection:"row",flexWrap:"wrap",justifyContent:"space-evenly"}}>
+                {
+                  hazards.map((hazard)=>{
+                    return (<TouchableOpacity onPress={()=>Alert.alert(hazard.name,hazard.description)}>
+                      <View style={{width:140,height:40,backgroundColor:red600,alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                        <Text style={{color:"white",fontSize:18}}>
+                          {hazard.name}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>)
+                  })
+                }
+              </View>
+           </>
+          )}
 
         </View>
-        
+        <View style={{ alignItems: 'center', marginHorizontal: 30 ,marginTop:40, marginBottom:20}}>
+          <Text
+            style={{
+              fontSize: 28,
+              fontWeight: "500",
+              color: "#333",
+              
+            }}
+          >
+            Nutritional Info
+          </Text>
+          <Text>* Amount per serving 100 g/100 ml (approx)</Text>
+          <View style={{width:"99%",marginTop:0 ,flexDirection:"row",flexWrap:"wrap",justifyContent:"space-evenly"}}>
+            <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                {
+                  productDetail.level > 1 ? (
+                    <Text style={{color:"white",fontSize:18}}>
+                      Energy - 389kcal
+                    </Text>
+                  ) : (
+                    <Text style={{color:"white",fontSize:18}}>
+                      Energy - 56kcal
+                    </Text>
+                  )
+                }
+            </View>
+            <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+              {
+                productDetail.level > 1 ? (
+                  <Text style={{color:"white",fontSize:18}}>
+                    Total Fat - 13.5 g
+                  </Text>
+                ) : (
+                  <Text style={{color:"white",fontSize:18}}>
+                    Fruit sugars - 6g
+                  </Text>
+                )
+              }
+            </View>
+            {
+              productDetail.level == 1 && (
+                <>  
+                  <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                    <Text style={{color:"white",fontSize:18}}>
+                    Vit. C - 42mg
+                    </Text>
+                  </View>
+                  <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                    <Text style={{color:"white",fontSize:18}}>
+                    Vit. A - 115mcg
+                    </Text>
+                  </View>
+                  <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                    <Text style={{color:"white",fontSize:18}}>
+                    Vit. E - 1.88mg
+                      </Text>
+                  </View>
+                </>
+              )
+            }
+            {
+                productDetail.level > 1 && (
+                <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+                  <Text style={{color:"white",fontSize:18}}>
+                    Protein - 8.2 g
+                  </Text>
+                </View>
+            )}
+            <View style={{width:140,height:40,backgroundColor:"#69b550",alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
+              {
+                productDetail.level > 1 ? (
+                  <Text style={{color:"white",fontSize:18}}>
+                  Carbs - 59.6 g
+                </Text>
+                ) : (
+                  <Text style={{color:"white",fontSize:18}}>
+                    Carbs - 14  g
+                  </Text>
+                ) 
+              }
+            </View>
+          </View>
+        </View>
       </ScrollView>
     </View>
   )
