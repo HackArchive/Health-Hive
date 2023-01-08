@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, FlatList, Image } from "react-native";
-import { Searchbar, Text, IconButton } from "react-native-paper";
+import { Searchbar, Text, IconButton,Button } from "react-native-paper";
 import {
   red400,
   white,
@@ -95,12 +95,26 @@ export default function ProductInfo({ navigation }) {
           />
         </View>
       </View>
+      {
+        products.length==0
+        ?
+        <Button 
+          onPress={()=>{
+              navigation.navigate("Contribute")
+          }} 
+          icon="plus"
+          mode="contained" 
+          style={styles.button}>
+              Contribute
+        </Button>
+      :
       <FlatList
         style={{ marginTop: 20 }}
         data={products}
         renderItem={renderProduct}
         keyExtractor={(product) => product.id}
       />
+      }
     </>
   );
 }
@@ -137,4 +151,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 50,
   },
+  button:{
+    backgroundColor:red400,
+    height:45,
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:150,
+    width:"60%",
+    alignSelf:"center"
+}
 });
