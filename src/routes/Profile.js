@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Text, Button } from "react-native-paper";
-import { View,StyleSheet,Animated,Alert,Image } from "react-native";
+import { View,StyleSheet,Animated,Alert,Image,ScrollView } from "react-native";
 import { red400 } from "react-native-paper/lib/commonjs/styles/themes/v2/colors";
 import pfp from "../assets/pfp.png"
 import {Context} from "../../App"
@@ -11,10 +11,11 @@ export default function Profile(props) {
 
     return (
     <View style={styles.container}>
+
         <View style={styles.topgraphic}>
             <Image style={styles.img} source={pfp}/>
         </View>
-
+        <ScrollView style={styles.form}>
         <View style={[styles.detailscard,styles.shadowProp]}>
         <Text style={styles.txtdetails}>
             Name: {userDetails.name}
@@ -39,6 +40,7 @@ export default function Profile(props) {
                     Logout
                 </Text>
         </Button>
+    </ScrollView>
     </View>
     )
 
