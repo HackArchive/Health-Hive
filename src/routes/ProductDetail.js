@@ -30,7 +30,6 @@ export default function ProductDetail({navigation,route}){
             return {name:item.name,description:item.description}
           }
         })
-        console.log(hazardsData.length)
         setHazards(hazardsData);
       }
       catch(error){
@@ -60,7 +59,14 @@ export default function ProductDetail({navigation,route}){
             }}
           />
           <Text style={styles.name}>{productDetail.title}</Text>
-          <Text style={styles.price}>Safety Level {productDetail.level}</Text>
+          <Text 
+            style={{marginTop: 10,
+              fontSize: 18,
+              color: getColourLevel(productDetail.level),
+              fontWeight: 'bold',}}
+          >
+            Safety Level {productDetail.level}
+          </Text>
 
           <TouchableOpacity onPress={getIngredients}>
             <View style={{width:170,height:50,backgroundColor:green800,alignItems:"center",justifyContent:"center",borderRadius:30,marginTop:20}}>
@@ -107,12 +113,6 @@ const styles = StyleSheet.create({
     color: '#696969',
     fontWeight: 'bold',
     marginTop:10
-  },
-  price: {
-    marginTop: 10,
-    fontSize: 18,
-    color: 'green',
-    fontWeight: 'bold',
   },
   description: {
     textAlign: 'center',

@@ -14,15 +14,20 @@ import {
 import { Table, Rows, Row } from "react-native-table-component";
 import { nutritionKey, nutritionAppId } from "../../config";
 
+
 const extractIngr = (data) => {
   let cleanData = data["ingredients"];
   return cleanData.map(({ text, parsed }) => {
+
+    let cal = parseInt(parsed[0]["nutrients"]["ENERC_KCAL"]["quantity"])
+    let weight = parseInt(parsed[0]["weight"]) 
+
     return [
       parsed[0]["quantity"],
       parsed[0]["measure"],
       parsed[0]["food"],
-      parseInt(parsed[0]["nutrients"]["ENERC_KCAL"]["quantity"]),
-      parseInt(parsed[0]["weight"]),
+      cal,
+      weight,
     ];
   });
 };
@@ -35,14 +40,33 @@ export default function Analyse() {
         `;
 
   const [text, setText] = useState(initMessage);
-  const [tableData, setTableData] = useState([
-    ["1", "Cup", "rice", "702 kcal", "195 g"],
-    ["2", "Whole", "Onion", "50 kcal", "195 g"],
-    ["3", "Cup", "rice", "702 kcal", "195 g"],
-    ["4", "Whole", "Onion", "50 kcal", "195 g"],
-  ]);
+  const [tableData, setTableData] = useState([]);
+
+
+  const getTotal = (type) => {
+
+    if (type===0){
+      
+      let cal = 0;
+      tableData.map((data)=>{
+        cal += data[3]
+      })
+      return cal;
+    
+    }
+    else{
+      let wei = 0;
+      tableData.map((data)=>{
+        wei += data[4]
+      })
+      return wei;
+    }
+
+  }
+
 
   const getNutritionAnalysis = async (data) => {
+
     const cleanData = data.split(",").map((item) => {
       return item.trim();
     });
@@ -65,9 +89,11 @@ export default function Analyse() {
     );
 
     if (resp.status == 200) {
+
       const outJson = await resp.json();
       setErrStatusCode(200);
       setTableData(extractIngr(outJson));
+
     } else {
       setErrStatusCode(500);
     }
@@ -89,6 +115,16 @@ export default function Analyse() {
               data={["Qty", "Unit", "Food", "Calories", "Weight"]}
             />
             <Rows style={{ height: 30 }} data={tableData} />
+            <Row
+              style={{ height: 50 }}
+              data={[
+                  "Total",
+                  "",
+                  "",
+                  getTotal(0),
+                  getTotal(1),
+                ]}
+            />
           </Table>
         </View>
       );
