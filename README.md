@@ -1,6 +1,6 @@
 # HealthHive
 
-Know about what goes in you food
+Know about what goes in your food
 
 ## 💡 Inspiration
 
