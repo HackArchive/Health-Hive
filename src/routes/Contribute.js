@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
         justifyContent:"center"
     },
     txtheader:{
+        marginTop:10,
         fontWeight:"bold",
         color:"white",
         fontSize:40,
